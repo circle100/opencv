@@ -1,0 +1,48 @@
+Mat.ptr(int row X) returns the  pointer of row X (equivalent to Mat(row X)[col 0])
+
+If you want to get the value of pixel at row X, col Y;
+
+You can use ptr like this: Mat.ptr(X-1)[Y-1].(note: the subscript of array in openCV begins from zero!)
+
+In matlab, the system will throw an "overflow error", if the subScript > rows;
+
+e.g. Image(10,10); a = Image(1,11);(overflow error!)
+
+However, in opencv, system will not act like this;
+
+e.g. Image(10,10); a = Image(1,11); (the system will automatically move the pointer to the next row)
+
+in this example, a = Image(1,11) = Image(2,1);
+
+You can try the following code in the opencv:
+
+Mat Image;
+
+Image.create(10,10,CV_8UC1);
+
+int n =1;
+
+for(int i=0;i<10;i++)
+
+{
+
+  for(int j=0;j<10;j++)
+  
+  {
+  
+      Image.ptr(i)[j] = n;
+      n++;
+      
+  }
+  
+}
+
+cout<<Image.ptr(0)[12];
+
+cout<<Image.ptr(1)[2];
+
+// You will find that the two outputs have the same result.
+
+Hope that I was not the last one who know the trick :)
+I'm a green hand
+Any suggestion is appreciated :)
